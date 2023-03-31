@@ -31,10 +31,15 @@ namespace AkbilYonetimiUI
             btnGirisYap.TabIndex = 4;
             btnKayitOl.TabIndex = 5;
             txtSifre.PasswordChar = '*';
+            checkBoxHatirla.Checked = false;
 
-            //beni hatirlayi Properties.Settings ile yapana kadar burası böyle kolaylık saglasin
-            txtEmail.Text = "maideseymaersahan@gmail.com";
-            txtSifre.Text = "123456";
+
+          if (Properties.Akbil.Default.BeniHatirla)
+            {
+                txtEmail.Text = Properties.Akbil.Default.BeniHatirlaKullaniciEmail;
+                txtSifre.Text = Properties.Akbil.Default.BeniHatirlaKullaniciSifre;
+                checkBoxHatirla.Checked = true;
+            }
 
 
         }
@@ -83,6 +88,10 @@ namespace AkbilYonetimiUI
                     GenelIslemler.GirisYapanKullaniciAdSoyad = $" {kullanici.Ad} {kullanici.Soyad}";
 
                     // beni hatılayı settings ile yazalım...
+                    if (checkBoxHatirla.Checked)
+                    {
+                        BeniHatirla();
+                    }
 
                     // temizlik
                     txtEmail.Clear(); txtSifre.Clear();
@@ -102,12 +111,27 @@ namespace AkbilYonetimiUI
 
         private void checkBoxHatirla_CheckedChanged(object sender, EventArgs e)
         {
-            BeniHatirla();
+            if (checkBoxHatirla.Checked)
+                {
+                Properties.Akbil.Default.BeniHatirla = true;
+                Properties.Akbil.Default.Save();
+
+
+            }
+            else
+            {
+                Properties.Akbil.Default.BeniHatirla = false;
+                Properties.Akbil.Default.Save();
+            }
+
+
         }
 
         private void BeniHatirla()
         {
-
+            Properties.Akbil.Default.BeniHatirlaKullaniciEmail = txtEmail.Text.Trim();
+            Properties.Akbil.Default.BeniHatirlaKullaniciSifre = txtSifre.Text.Trim();
+            Properties.Akbil.Default.Save();
 
         }
 

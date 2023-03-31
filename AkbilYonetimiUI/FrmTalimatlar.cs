@@ -216,16 +216,15 @@ namespace AkbilYonetimiUI
             //GenelIslemler.GirisYapanKullaniciAdSoyad = string.Empty;
             //GenelIslemler.GirisYapanKullaniciID = 0;
 
+            FrmGiris giris = new FrmGiris();
             foreach (Form item in Application.OpenForms)
             {
-                if (item.Name != "FrmGiris")
-                {
+                
+                
                     item.Hide();
                 }
+               giris.Show();
             }
-
-            Application.OpenForms["FrmGiris"].Show();
-        }
 
         private void lblBekleyenTalimat_Click(object sender, EventArgs e)
         {
